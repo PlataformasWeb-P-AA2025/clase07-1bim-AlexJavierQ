@@ -21,5 +21,14 @@ session = Session()
 # Sacar las matriculas con su estudiante y módulo
 matriculas = session.query(Matricula).all()
 
-for m in matriculas:
-    print(m, m.estudiante, m.modulo)
+#for m in matriculas:
+ #   print(m, m.estudiante, m.modulo)
+    
+# Obtener todos los modulos que tengan matriculas de estudiantes cuyo nombre sea tony
+#Usando la relacion entre matriculas y estudiantes podemos buscar desde el query todas las matriculas donde el #estudiante asociado sea "Tony", se usa matricula.estudiante.has ya que entre modulos y estudiantes hay una #relacion muchos a muchos y .has permite aplicar filtros a este tipo de objetos y finalmente luego de recorrer #todas las matriculas filtradas podemos obtener el nombre del los modulos.
+modulos = session.query(Matricula).filter(
+    Matricula.estudiante.has(nombre='Tony')
+).all()
+for m in modulos:
+    print(m.modulo.nombre) 
+    
